@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PyType Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="logo">⌨️</div>
+          <div>
+            <h1>PyType Studio</h1>
+            <p>Advanced Python typing mastery</p>
+          </div>
+        </div>
+        <nav class="lesson-nav">
+          <div class="section-title">Lesson Plan</div>
+          <div id="lessonList" class="lesson-list"></div>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="section-title">Progress Snapshot</div>
+          <div class="progress-card">
+            <div>
+              <span class="progress-label">Lessons completed</span>
+              <strong id="lessonsCompleted">3</strong>
+            </div>
+            <div>
+              <span class="progress-label">Weekly streak</span>
+              <strong id="weeklyStreak">5 days</strong>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <h2 id="lessonTitle">Data Structures Deep Dive</h2>
+            <p id="lessonSubtitle">Multi-paradigm Python design patterns & data fluency.</p>
+          </div>
+          <div class="topbar-actions">
+            <button id="resetLesson" class="ghost-button">Reset</button>
+            <button class="primary-button">Start Focus Mode</button>
+          </div>
+        </header>
+
+        <section class="overview-grid">
+          <div class="card lesson-overview">
+            <div class="card-header">
+              <h3>Lesson Blueprint</h3>
+              <span class="pill" id="lessonLevel">Advanced</span>
+            </div>
+            <ul id="lessonObjectives" class="objective-list"></ul>
+            <div class="focus-row">
+              <div>
+                <span class="label">Focus</span>
+                <strong id="lessonFocus">Data structures</strong>
+              </div>
+              <div>
+                <span class="label">Target speed</span>
+                <strong>52 WPM</strong>
+              </div>
+              <div>
+                <span class="label">Accuracy</span>
+                <strong>97%</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="card insights">
+            <div class="card-header">
+              <h3>Skill Growth Insights</h3>
+              <span class="pill">Auto-generated</span>
+            </div>
+            <div class="insight-grid">
+              <div>
+                <h4>Precision under pressure</h4>
+                <p>You're strongest at nested comprehensions. Push consistency when switching contexts.</p>
+              </div>
+              <div>
+                <h4>Rhythm focus</h4>
+                <p>Keep wrists neutral. Your speed peaks at 60s intervals; take micro-breaks.</p>
+              </div>
+            </div>
+            <div class="badge-row">
+              <span class="badge">Flow state: 12 mins</span>
+              <span class="badge">Syntax recall: 94%</span>
+              <span class="badge">Error recovery: 88%</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="typing-zone">
+          <div class="card typing-card">
+            <div class="card-header">
+              <h3>Typing Lab</h3>
+              <div class="metrics">
+                <div>
+                  <span class="label">WPM</span>
+                  <strong id="metricWpm">0</strong>
+                </div>
+                <div>
+                  <span class="label">Accuracy</span>
+                  <strong id="metricAccuracy">100%</strong>
+                </div>
+                <div>
+                  <span class="label">Errors</span>
+                  <strong id="metricErrors">0</strong>
+                </div>
+              </div>
+            </div>
+            <div class="code-panel">
+              <pre id="codeDisplay" class="code-display"></pre>
+              <textarea
+                id="codeInput"
+                class="code-input"
+                spellcheck="false"
+                placeholder="Start typing the lesson snippet here..."
+              ></textarea>
+            </div>
+            <div class="typing-actions">
+              <button id="copySnippet" class="ghost-button">Copy snippet</button>
+              <button id="nextLesson" class="primary-button">Next lesson</button>
+            </div>
+          </div>
+
+          <div class="card settings-card">
+            <div class="card-header">
+              <h3>Environment Settings</h3>
+              <span class="pill">Adaptive</span>
+            </div>
+            <div class="settings-grid">
+              <label class="toggle">
+                <input id="toggleHints" type="checkbox" checked />
+                <span>Show syntax hints</span>
+              </label>
+              <label class="toggle">
+                <input id="toggleLineNumbers" type="checkbox" checked />
+                <span>Line numbers</span>
+              </label>
+              <label class="toggle">
+                <input id="toggleSound" type="checkbox" />
+                <span>Typing soundscape</span>
+              </label>
+              <label class="toggle">
+                <input id="toggleZen" type="checkbox" />
+                <span>Zen focus mode</span>
+              </label>
+              <div class="select-field">
+                <span>Theme</span>
+                <select id="themeSelect">
+                  <option value="aurora" selected>Aurora</option>
+                  <option value="midnight">Midnight</option>
+                  <option value="sunrise">Sunrise</option>
+                </select>
+              </div>
+              <div class="range-field">
+                <span>Font size</span>
+                <input id="fontSize" type="range" min="14" max="20" value="16" />
+              </div>
+            </div>
+            <div class="session-card">
+              <h4>Session Goals</h4>
+              <ul>
+                <li>Complete 2 advanced lessons</li>
+                <li>Maintain &gt; 96% accuracy</li>
+                <li>Review flashcards after 20 mins</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
