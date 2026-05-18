@@ -101,6 +101,53 @@ body {
   margin-top: 6px;
 }
 
+
+.lesson-builder {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.lesson-form {
+  display: grid;
+  gap: 12px;
+}
+
+.lesson-form label {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.lesson-form input,
+.lesson-form textarea,
+.lesson-form select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  color: #fff;
+  border-radius: 10px;
+  padding: 9px 10px;
+  font: inherit;
+}
+
+.lesson-form textarea {
+  resize: vertical;
+}
+
+.lesson-form .primary-button {
+  width: 100%;
+}
+
+.form-status {
+  min-height: 1.1rem;
+  margin: 0;
+  color: #aaf1ff;
+  font-size: 0.78rem;
+}
+
 .progress-card {
   display: grid;
   gap: 12px;

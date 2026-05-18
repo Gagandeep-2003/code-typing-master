@@ -1,4 +1,4 @@
-const lessons = [
+const defaultLessons = [
   {
     title: "Data Structures Deep Dive",
     subtitle: "Multi-paradigm Python design patterns & data fluency.",
@@ -49,6 +49,28 @@ const lessons = [
   },
 ];
 
+const lessonStorageKey = "pytype-lessons";
+
+const loadCustomLessons = () => {
+  const raw = localStorage.getItem(lessonStorageKey);
+  if (!raw) return [];
+
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (error) {
+    console.warn("Unable to load saved lessons", error);
+    return [];
+  }
+};
+
+const saveCustomLessons = () => {
+  const customLessons = lessons.filter((lesson) => lesson.isCustom);
+  localStorage.setItem(lessonStorageKey, JSON.stringify(customLessons));
+};
+
+let lessons = [...defaultLessons, ...loadCustomLessons()];
+
 const lessonList = document.getElementById("lessonList");
 const lessonTitle = document.getElementById("lessonTitle");
 const lessonSubtitle = document.getElementById("lessonSubtitle");
@@ -68,6 +90,13 @@ const fontSize = document.getElementById("fontSize");
 const resetLesson = document.getElementById("resetLesson");
 const nextLesson = document.getElementById("nextLesson");
 const copySnippet = document.getElementById("copySnippet");
+const lessonForm = document.getElementById("lessonForm");
+const newLessonTitle = document.getElementById("newLessonTitle");
+const newLessonFocus = document.getElementById("newLessonFocus");
+const newLessonLevel = document.getElementById("newLessonLevel");
+const newLessonObjectives = document.getElementById("newLessonObjectives");
+const newLessonSnippet = document.getElementById("newLessonSnippet");
+const lessonFormStatus = document.getElementById("lessonFormStatus");
 
 let currentLessonIndex = 0;
 let timerStart = null;
@@ -108,7 +137,14 @@ const renderLessons = () => {
   lessons.forEach((lesson, index) => {
     const item = document.createElement("div");
     item.className = `lesson-item ${index === currentLessonIndex ? "active" : ""}`;
-    item.innerHTML = `<strong>${lesson.title}</strong><span>${lesson.focus}</span>`;
+
+    const title = document.createElement("strong");
+    title.textContent = lesson.title;
+
+    const details = document.createElement("span");
+    details.textContent = `${lesson.focus}${lesson.isCustom ? " · Custom" : ""}`;
+
+    item.append(title, details);
     item.addEventListener("click", () => {
       currentLessonIndex = index;
       resetTyping();
@@ -147,6 +183,8 @@ const renderCodeSnippet = () => {
   codeDisplay.style.fontSize = `${fontSize.value}px`;
   errorCount = 0;
   updateMetrics();
+  applyLineNumbers();
+  applyHints();
 };
 
 const resetTyping = () => {
@@ -184,6 +222,31 @@ const updateDisplay = () => {
   });
   codeDisplay.innerHTML = formatted.join("");
   updateMetrics();
+};
+
+
+const buildLessonFromForm = () => {
+  const objectives = newLessonObjectives.value
+    .split("\n")
+    .map((objective) => objective.trim())
+    .filter(Boolean);
+
+  return {
+    title: newLessonTitle.value.trim(),
+    subtitle: `Custom ${newLessonFocus.value.trim()} typing practice.`,
+    level: newLessonLevel.value,
+    focus: newLessonFocus.value.trim(),
+    objectives,
+    snippet: newLessonSnippet.value.trim(),
+    isCustom: true,
+  };
+};
+
+const showLessonFormStatus = (message) => {
+  lessonFormStatus.textContent = message;
+  setTimeout(() => {
+    lessonFormStatus.textContent = "";
+  }, 3000);
 };
 
 const applyTheme = () => {
@@ -263,6 +326,24 @@ nextLesson.addEventListener("click", () => {
   currentLessonIndex = (currentLessonIndex + 1) % lessons.length;
   resetTyping();
   renderLesson();
+});
+
+lessonForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const lesson = buildLessonFromForm();
+  if (!lesson.title || !lesson.focus || lesson.objectives.length === 0 || !lesson.snippet) {
+    showLessonFormStatus("Add a title, focus, objective, and snippet.");
+    return;
+  }
+
+  lessons = [...lessons, lesson];
+  saveCustomLessons();
+  currentLessonIndex = lessons.length - 1;
+  lessonForm.reset();
+  resetTyping();
+  renderLesson();
+  showLessonFormStatus("Lesson added to your plan.");
 });
 
 copySnippet.addEventListener("click", async () => {

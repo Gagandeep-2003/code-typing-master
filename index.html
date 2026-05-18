@@ -26,6 +26,47 @@
           <div class="section-title">Lesson Plan</div>
           <div id="lessonList" class="lesson-list"></div>
         </nav>
+        <section class="lesson-builder" aria-labelledby="lessonBuilderTitle">
+          <div class="section-title" id="lessonBuilderTitle">Add Lesson</div>
+          <form id="lessonForm" class="lesson-form">
+            <label>
+              <span>Title</span>
+              <input id="newLessonTitle" type="text" placeholder="Decorators Drill" required />
+            </label>
+            <label>
+              <span>Focus</span>
+              <input id="newLessonFocus" type="text" placeholder="Decorators" required />
+            </label>
+            <label>
+              <span>Level</span>
+              <select id="newLessonLevel">
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced" selected>Advanced</option>
+              </select>
+            </label>
+            <label>
+              <span>Objectives</span>
+              <textarea
+                id="newLessonObjectives"
+                rows="3"
+                placeholder="One objective per line"
+                required
+              ></textarea>
+            </label>
+            <label>
+              <span>Code snippet</span>
+              <textarea
+                id="newLessonSnippet"
+                rows="5"
+                placeholder="Paste the Python snippet to practice"
+                required
+              ></textarea>
+            </label>
+            <button type="submit" class="primary-button">Add to plan</button>
+            <p id="lessonFormStatus" class="form-status" aria-live="polite"></p>
+          </form>
+        </section>
         <div class="sidebar-footer">
           <div class="section-title">Progress Snapshot</div>
           <div class="progress-card">
